@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9edf2"/><stop offset="1" stop-color="#b9c2cc"/>
+    </linearGradient>
+    <linearGradient id="pie" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4cc2ff"/><stop offset="1" stop-color="#0063b1"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="30" width="52" height="26" rx="5" fill="url(#case)" stroke="#6b7785" stroke-width="1.5"/>
+  <rect x="12" y="44" width="28" height="4" rx="2" fill="#6b7785"/>
+  <circle cx="50" cy="46" r="2.6" fill="#2fbf4a"/>
+  <circle cx="32" cy="22" r="16" fill="#ffffff" stroke="#6b7785" stroke-width="1.5"/>
+  <path d="M32 22 L32 6 A16 16 0 0 1 47.2 27 Z" fill="url(#pie)"/>
+  <path d="M32 22 L47.2 27 A16 16 0 0 1 22 34.5 Z" fill="#1f4fa8"/>
+</svg>

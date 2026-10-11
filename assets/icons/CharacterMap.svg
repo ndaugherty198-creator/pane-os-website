@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3e8ee"/>
+    </linearGradient>
+    <linearGradient id="hl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4cc2ff"/><stop offset="1" stop-color="#0063b1"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="6" fill="url(#bg)" stroke="#8a95a3" stroke-width="1.5"/>
+  <g stroke="#b9c2cc" stroke-width="1.2">
+    <path d="M23.3 6.8v50.4M40.7 6.8v50.4M6.8 23.3h50.4M6.8 40.7h50.4"/>
+  </g>
+  <rect x="24" y="24" width="16" height="16" fill="url(#hl)"/>
+  <g font-family="Noto Sans, DejaVu Sans, sans-serif" font-weight="700" text-anchor="middle">
+    <text x="15" y="20.5" font-size="12" fill="#3a4654">A</text>
+    <text x="32" y="20.5" font-size="12" fill="#3a4654">ß</text>
+    <text x="49" y="20.5" font-size="12" fill="#3a4654">€</text>
+    <text x="15" y="37.5" font-size="12" fill="#3a4654">©</text>
+    <text x="32" y="37.8" font-size="13" fill="#ffffff">Ω</text>
+    <text x="49" y="37.5" font-size="12" fill="#3a4654">→</text>
+    <text x="15" y="54.5" font-size="12" fill="#3a4654">½</text>
+    <text x="32" y="54.5" font-size="12" fill="#3a4654">♪</text>
+    <text x="49" y="54.5" font-size="12" fill="#3a4654">Ñ</text>
+  </g>
+</svg>

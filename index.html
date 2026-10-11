@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pane OS — The desktop you know. Free, and built on Linux.</title>
+<meta name="description" content="Pane OS is a free Linux operating system that looks and works like the desktop you already know: Start, File Explorer, Settings, Task Manager and 35+ rebuilt apps, on Ubuntu 26.04 and GNOME 50.">
+<meta property="og:title" content="Pane OS">
+<meta property="og:description" content="The desktop you know. Free, and built on Linux.">
+<meta property="og:image" content="assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f3f6fb;
+  --bg-2: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --text: #0f1726;
+  --text-2: #4a5568;
+  --text-3: #6b7689;
+  --border: rgba(15, 23, 38, 0.10);
+  --accent: #0067c0;
+  --accent-2: #005ba8;
+  --accent-soft: rgba(0, 103, 192, 0.10);
+  --on-accent: #ffffff;
+  --shadow: 0 1px 2px rgba(15, 23, 38, 0.06), 0 12px 32px rgba(15, 23, 38, 0.10);
+  --shadow-lg: 0 2px 6px rgba(15, 23, 38, 0.08), 0 30px 80px rgba(15, 40, 90, 0.22);
+  --hero-from: #dfeaf9;
+  --hero-to: #f3f6fb;
+  --glow: rgba(0, 120, 230, 0.28);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1120;
+    --bg-2: #0f1628;
+    --surface: #151d31;
+    --surface-2: #1b2540;
+    --text: #eef3fb;
+    --text-2: #b4c0d4;
+    --text-3: #8492aa;
+    --border: rgba(255, 255, 255, 0.09);
+    --accent: #4cc2ff;
+    --accent-2: #78d0ff;
+    --accent-soft: rgba(76, 194, 255, 0.12);
+    --on-accent: #001a33;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.55);
+    --hero-from: #0a1a3a;
+    --hero-to: #0b1120;
+    --glow: rgba(40, 150, 255, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1120;
+  --bg-2: #0f1628;
+  --surface: #151d31;
+  --surface-2: #1b2540;
+  --text: #eef3fb;
+  --text-2: #b4c0d4;
+  --text-3: #8492aa;
+  --border: rgba(255, 255, 255, 0.09);
+  --accent: #4cc2ff;
+  --accent-2: #78d0ff;
+  --accent-soft: rgba(76, 194, 255, 0.12);
+  --on-accent: #001a33;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 2px 6px rgba(0, 0, 0, 0.4), 0 30px 80px rgba(0, 0, 0, 0.55);
+  --hero-from: #0a1a3a;
+  --hero-to: #0b1120;
+  --glow: rgba(40, 150, 255, 0.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, video { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0; }
+h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; }
+h3 { font-size: 22px; font-weight: 700; }
+.eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 10px; }
+.lead { color: var(--text-2); font-size: 18px; margin: 14px 0 0; }
+section { padding: 96px 0; }
+
+/* nav */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.nav .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); }
+.brand:hover { text-decoration: none; }
+.brand img { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 22px; margin-left: auto; }
+.nav-links a { color: var(--text-2); font-size: 15px; font-weight: 500; }
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+.theme-btn {
+  width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center;
+}
+.theme-btn svg { width: 18px; height: 18px; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 15px;
+  border: 1px solid transparent; cursor: pointer; transition: transform .15s, background .15s, box-shadow .15s;
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 6px 20px var(--glow); }
+.btn-primary:hover { background: var(--accent-2); }
+.btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn svg { width: 18px; height: 18px; }
+.btn-sm { padding: 8px 16px; font-size: 14px; }
+
+/* hero */
+.hero {
+  padding: 84px 0 40px;
+  background: radial-gradient(1100px 520px at 70% -10%, var(--glow), transparent 60%),
+              linear-gradient(180deg, var(--hero-from), var(--hero-to));
+  text-align: center;
+  overflow: hidden;
+}
+.hero .logo { width: 84px; height: 84px; margin: 0 auto 26px; filter: drop-shadow(0 10px 30px var(--glow)); }
+.hero h1 { font-size: clamp(40px, 7vw, 76px); font-weight: 800; letter-spacing: -0.035em; }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), #2f8cff 60%, #7aa8ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lead { max-width: 680px; margin: 20px auto 0; font-size: 19px; }
+.hero .cta { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+.hero .meta { color: var(--text-3); font-size: 14px; margin-top: 16px; }
+.hero-shot {
+  margin: 56px auto 0; max-width: 1060px; border-radius: 14px; overflow: hidden;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  transform: perspective(1600px) rotateX(6deg); transform-origin: 50% 0;
+}
+.hero-shot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* trailer */
+.video {
+  border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border); background: #000; margin-top: 36px;
+}
+.video video { width: 100%; aspect-ratio: 16 / 9; }
+.center { text-align: center; }
+.center .lead { max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* features */
+.feature { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; align-items: center; margin-top: 88px; }
+.feature:nth-child(even) { grid-template-columns: 1.35fr 1fr; }
+.feature:nth-child(even) .feature-text { order: 2; }
+.feature-text p { color: var(--text-2); margin: 14px 0 0; font-size: 17px; }
+.feature-text ul { margin: 18px 0 0; padding: 0; list-style: none; color: var(--text-2); }
+.feature-text li { padding-left: 28px; position: relative; margin: 8px 0; }
+.feature-text li::before {
+  content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='%232f8cff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat;
+}
+.shot { border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); background: var(--surface); }
+.shot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* light/dark compare */
+.compare { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); aspect-ratio: 16 / 9; user-select: none; touch-action: pan-y; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.compare .top { clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+.compare .bar { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 3px; margin-left: -1.5px; background: #fff; box-shadow: 0 0 12px rgba(0,0,0,.35); pointer-events: none; }
+.compare .knob {
+  position: absolute; top: 50%; left: var(--pos, 50%); width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  border-radius: 50%; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,.3); display: grid; place-items: center; pointer-events: none;
+}
+.compare .knob svg { width: 22px; height: 22px; color: #0067c0; }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.compare .tag { position: absolute; bottom: 12px; padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; background: rgba(0,0,0,.55); color: #fff; }
+.compare .tag.l { left: 12px; } .compare .tag.r { right: 12px; }
+
+/* apps */
+.apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 14px; margin-top: 44px; }
+.app {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 10px 16px; text-align: center; transition: transform .15s, box-shadow .15s;
+}
+.app:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.app img { width: 48px; height: 48px; margin: 0 auto 12px; }
+.app span { font-size: 14px; font-weight: 500; color: var(--text); }
+.apps-note { color: var(--text-3); text-align: center; margin-top: 22px; font-size: 15px; }
+
+/* specs strip */
+.alt { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 44px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
+.card .ic { width: 44px; height: 44px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 16px; }
+.card .ic svg { width: 22px; height: 22px; }
+.card h3 { font-size: 18px; }
+.card p { color: var(--text-2); margin: 8px 0 0; font-size: 15px; }
+
+/* download */
+.dl {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; margin-top: 44px; align-items: start;
+}
+.dl-card {
+  background: linear-gradient(160deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border); border-radius: 16px; padding: 34px; box-shadow: var(--shadow);
+}
+.dl-card .ver { display: flex; align-items: center; gap: 14px; }
+.dl-card .ver img { width: 56px; height: 56px; }
+.dl-card .ver b { font-size: 24px; display: block; }
+.dl-card .ver small { color: var(--text-3); font-size: 14px; }
+.dl-card .btn { width: 100%; justify-content: center; margin-top: 26px; padding: 15px; font-size: 16px; }
+.dl-card .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; box-shadow: none; }
+.facts { margin: 22px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; font-size: 14px; }
+.facts dt { color: var(--text-3); }
+.facts dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
+.facts code { font: 12.5px/1.5 ui-monospace, "Cascadia Mono", "SF Mono", Menlo, monospace; color: var(--text-2); }
+.copy { margin-left: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2); border-radius: 6px; font-size: 12px; padding: 2px 8px; cursor: pointer; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 22px 52px; }
+.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent); font-weight: 700; display: grid; place-items: center;
+}
+.steps b { display: block; margin-bottom: 2px; }
+.steps span { color: var(--text-2); font-size: 15px; }
+.req { margin-top: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; }
+.req h3 { font-size: 16px; margin-bottom: 8px; }
+.req ul { margin: 0; padding-left: 18px; color: var(--text-2); font-size: 15px; }
+
+/* faq */
+.faq { max-width: 820px; margin: 40px auto 0; }
+.faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin: 10px 0; padding: 0 22px; }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 0; font-weight: 600; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-size: 22px; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--text-2); margin: 0 0 18px; }
+
+/* footer */
+footer { border-top: 1px solid var(--border); padding: 40px 0 56px; color: var(--text-3); font-size: 14px; }
+footer .row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+footer .legal { margin-top: 18px; font-size: 13px; line-height: 1.6; max-width: 900px; }
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  .hero-shot { transform: none; }
+}
+
+@media (max-width: 900px) {
+  .feature, .feature:nth-child(even) { grid-template-columns: 1fr; gap: 28px; margin-top: 64px; }
+  .feature:nth-child(even) .feature-text { order: 0; }
+  .dl { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav .wrap { justify-content: space-between; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  section { padding: 72px 0; }
+  .hero { padding-top: 56px; }
+  .shot-pair { grid-template-columns: 1fr; }
+  .dl-card { padding: 24px; }
+  .nav .btn-sm { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/logo.svg" alt="">Pane OS</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#apps">Apps</a>
+      <a href="#download">Download</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <button class="theme-btn" id="theme" type="button" aria-label="Switch light or dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+    </button>
+    <a class="btn btn-primary btn-sm" href="#download">Download</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="logo" src="assets/logo.svg" alt="Pane OS logo">
+    <h1>The desktop you know.<br><span>Free, and built on Linux.</span></h1>
+    <p class="lead">Pane OS gives you Start, File Explorer, Settings, Task Manager and more than 35 rebuilt apps — the familiar Windows 11-style experience, on a fast, private, open-source foundation.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
+        Download Pane OS 1.0
+      </a>
+      <a class="btn btn-ghost" href="#trailer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+        Watch the trailer
+      </a>
+    </div>
+    <p class="meta">Free forever · 64-bit PCs · Based on Ubuntu 26.04 and GNOME 50</p>
+    <div class="hero-shot"><img src="assets/shots/start.webp" alt="Pane OS desktop with the Start menu open" width="1600" height="900"></div>
+  </div>
+</header>
+
+<section id="trailer">
+  <div class="wrap center reveal">
+    <p class="eyebrow">See it in action</p>
+    <h2>Pane OS in 43 seconds</h2>
+    <div class="video">
+      <video controls preload="none" playsinline poster="assets/shots/poster.webp">
+        <source src="assets/trailer.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Features</p>
+      <h2>Everything where you expect it</h2>
+      <p class="lead">No new workflow to learn. Pane OS replaces every stock app with a Windows-style one, so it feels like home from the first click.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Start and Search</h3>
+          <p>Pinned apps, recommended files and the full app list, one click away. Start typing to find apps, settings and the web.</p>
+          <ul><li>Centered taskbar with pinned apps</li><li>Search apps, settings pages and files</li><li>Power, account and folders at the bottom</li></ul>
+        </div>
+        <div class="shot-pair">
+          <div class="shot"><img loading="lazy" src="assets/shots/start.webp" alt="Start menu" width="1600" height="900"></div>
+          <div class="shot"><img loading="lazy" src="assets/shots/search.webp" alt="Search results for Task Manager" width="1600" height="900"></div>
+        </div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>File Explorer, with tabs</h3>
+          <p>Quick access, This PC, Recycle Bin, tabs and the right-click menus you're used to — including cut, copy, paste and rename shortcuts.</p>
+          <ul><li>Tabs and a full address bar</li><li>Opens ZIP, 7z and RAR archives</li><li>Windows 11-style context menus everywhere</li></ul>
+        </div>
+        <div class="shot"><img loading="lazy" src="assets/shots/explorer.webp" alt="File Explorer" width="1600" height="900"></div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>A complete Settings app</h3>
+          <p>System, Bluetooth & devices, Network & internet, Personalization, Apps, Accounts, Time & language, Accessibility and Privacy — plus Quick Settings in the taskbar.</p>
+          <ul><li>67 settings pages, all searchable</li><li>Dark mode, night light and volume in one click</li><li>Pane OS Update keeps everything current</li></ul>
+        </div>
+        <div class="shot-pair">
+          <div class="shot"><img loading="lazy" src="assets/shots/settings.webp" alt="Settings app" width="1600" height="900"></div>
+          <div class="shot"><img loading="lazy" src="assets/shots/quick.webp" alt="Quick Settings panel" width="1600" height="900"></div>
+        </div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Get the apps you love</h3>
+          <p>The Store brings thousands of free apps and games from Flathub and the Ubuntu repositories together in one place — Firefox, LibreOffice, VLC, GIMP, OBS, Blender and more.</p>
+          <ul><li>One-click install and updates</li><li>Games section and your Library</li><li>Run many Windows programs with the built-in EXE Runner</li></ul>
+        </div>
+        <div class="shot"><img loading="lazy" src="assets/shots/store.webp" alt="Store app" width="1600" height="900"></div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Power tools included</h3>
+          <p>Task Manager, Control Panel, Event Viewer, Disk Management and Credential Manager are all here — so troubleshooting works the way you already know.</p>
+          <ul><li>Processes, performance, startup apps and services</li><li>Classic Control Panel categories</li><li>A modern Terminal with tabs</li></ul>
+        </div>
+        <div class="shot-pair">
+          <div class="shot"><img loading="lazy" src="assets/shots/taskmgr.webp" alt="Task Manager" width="1600" height="900"></div>
+          <div class="shot"><img loading="lazy" src="assets/shots/controlpanel.webp" alt="Control Panel" width="1600" height="900"></div>
+        </div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feature-text">
+          <h3>Light or dark, your choice</h3>
+          <p>Switch modes from Quick Settings or Settings, and every Pane OS app, the Start menu and the taskbar follow along. Drag the slider to compare.</p>
+          <ul><li>System-wide light and dark mode</li><li>Accent colors for buttons and highlights</li><li>Your own wallpaper and slideshow</li></ul>
+        </div>
+        <div class="compare" id="compare">
+          <img src="assets/shots/settings.webp" alt="Settings in dark mode" loading="lazy">
+          <img class="top" src="assets/shots/settings-light.webp" alt="Settings in light mode" loading="lazy">
+          <div class="bar"></div>
+          <div class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
+          <span class="tag l">Light</span><span class="tag r">Dark</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Compare light and dark mode">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Apps</p>
+      <h2>35+ apps, rebuilt</h2>
+      <p class="lead">Every app is a native Pane OS app in the Windows 11 style — not a skin on top of something else.</p>
+    </div>
+    <div class="apps reveal" id="app-grid"></div>
+    <p class="apps-note">Plus File Explorer, Terminal, Start, Taskbar, Quick Settings, Notification Center, Search and the desktop.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Under the hood</p>
+      <h2>Familiar on top. Solid underneath.</h2>
+    </div>
+    <div class="cards reveal">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></svg></div>
+        <h3>Secure and private</h3>
+        <p>Built on Ubuntu 26.04 with Secure Boot support, a firewall and no ads or tracking.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+        <h3>Always up to date</h3>
+        <p>Pane OS Update delivers new app versions, while Ubuntu security updates install alongside — your customizations stay intact.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></div>
+        <h3>Fast and modern</h3>
+        <p>GNOME 50 on Wayland, Linux 7.0, GTK 4 and libadwaita — smooth on new hardware and light on older PCs.</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></div>
+        <h3>Free, forever</h3>
+        <p>No license key, no subscription, no account required. Install it on as many PCs as you like.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Download</p>
+      <h2>Get Pane OS</h2>
+      <p class="lead">Try it from a USB stick without touching your PC, then install when you're ready.</p>
+    </div>
+    <div class="dl reveal">
+      <div class="dl-card">
+        <div class="ver">
+          <img src="assets/logo.svg" alt="">
+          <div><b>Pane OS 1.0</b><small id="dl-date"></small></div>
+        </div>
+        <a class="btn btn-primary" id="dl-btn" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
+          <span id="dl-label">Download ISO</span>
+        </a>
+        <dl class="facts">
+          <dt>File</dt><dd id="dl-file"></dd>
+          <dt>Size</dt><dd id="dl-size"></dd>
+          <dt>SHA256</dt><dd><code id="dl-sha"></code><button class="copy" type="button" id="copy-sha">Copy</button></dd>
+        </dl>
+        <div class="req">
+          <h3>System requirements</h3>
+          <ul>
+            <li>64-bit PC (x86-64) with UEFI</li>
+            <li>4 GB RAM (8 GB recommended)</li>
+            <li>30 GB of free storage</li>
+            <li>USB stick of 4 GB or more for the installer</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <ol class="steps">
+          <li><b>Download the ISO</b><span>Optionally check it matches the SHA256 checksum shown here.</span></li>
+          <li><b>Make a bootable USB stick</b><span>Use <a href="https://etcher.balena.io/" rel="noopener">balenaEtcher</a>, <a href="https://rufus.ie/" rel="noopener">Rufus</a> or <a href="https://www.ventoy.net/" rel="noopener">Ventoy</a> to write the ISO to a USB stick.</span></li>
+          <li><b>Start your PC from the USB stick</b><span>Restart and open the boot menu (often F12, F11, Esc or F2). Pane OS runs live, so you can try it first.</span></li>
+          <li><b>Run Pane OS Setup</b><span>Double-click “Pane OS Setup” on the desktop and follow the steps — language, keyboard, disk and your account.</span></li>
+          <li><b>Get Started</b><span>After your first sign-in, Get Started helps you pick light or dark mode, your apps and your privacy settings.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="alt">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Is Pane OS Windows?</summary><p>No. Pane OS is a Linux operating system built on Ubuntu and GNOME. It's designed to look and work like the Windows 11 desktop, but it's an independent project and contains no Microsoft software.</p></details>
+      <details><summary>Can I run Windows programs?</summary><p>Many Windows programs run with the built-in Windows EXE Runner or Bottles from the Store. For most everyday tasks — browsing, office documents, photos, music and video — there are free native apps in the Store.</p></details>
+      <details><summary>Does it cost anything?</summary><p>No. Pane OS is free to download, use and install on as many PCs as you like. There are no ads, subscriptions or accounts.</p></details>
+      <details><summary>Can I try it without installing?</summary><p>Yes. Start your PC from the USB stick and Pane OS runs live from it. Nothing is changed on your PC until you run Pane OS Setup.</p></details>
+      <details><summary>How do updates work?</summary><p>Settings › Pane OS Update installs new versions of Pane OS apps. Ubuntu security and app updates install alongside them, and Pane OS keeps its own look and changes in place after each update.</p></details>
+      <details><summary>Can I keep Windows and install Pane OS next to it?</summary><p>Pane OS Setup can install alongside an existing system if your disk has free space. Always back up your files before installing any operating system.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a class="brand" href="#top"><img src="assets/logo.svg" alt="">Pane OS</a>
+      <span>Built on <a href="https://www.anduinos.com/" rel="noopener">AnduinOS</a>, <a href="https://ubuntu.com/" rel="noopener">Ubuntu</a> and <a href="https://www.gnome.org/" rel="noopener">GNOME</a>.</span>
+    </div>
+    <p class="legal">Pane OS is an independent project and is not affiliated with, sponsored or endorsed by Microsoft, Canonical or the AnduinOS project. Windows is a trademark of Microsoft Corporation. Ubuntu is a registered trademark of Canonical Ltd. All other trademarks belong to their owners.</p>
+  </div>
+</footer>
+
+<script>
+// ---- Release details: update these when you publish a new ISO -------------------------
+const RELEASE = {
+  url: "https://sourceforge.net/projects/pane-os/files/latest/download",  // empty = button shows "Coming soon"
+  file: "PaneOS-1.0-20261011.0737.iso",
+  date: "October 11, 2026",
+  bytes: 2416508928,
+  sha256: "e38a5d6e2a42b24270065781422e395dda21cc08e5a9218a313af9061b5219c2",
+};
+// -------------------------------------------------------------------------------------------
+
+const APPS = [
+  ["Settings", "Settings"], ["Store", "Store"], ["Photos", "Photos"], ["Camera", "Camera"],
+  ["Mail", "Mail"], ["Calendar", "Calendar"], ["Weather", "Weather"], ["Clock", "Clock"],
+  ["Calculator", "Calculator"], ["Notepad", "Notepad"], ["Media Player", "Media"],
+  ["Document Viewer", "Documents"], ["Task Manager", "TaskManager"], ["Control Panel", "ControlPanel"],
+  ["Disk Management", "DiskManagement"], ["Disk Usage", "DiskUsage"], ["Event Viewer", "EventViewer"],
+  ["Credential Manager", "CredentialManager"], ["Network Connections", "NetworkConnections"],
+  ["Compressed Folders", "CompressedFolder"], ["Character Map", "CharacterMap"], ["Scan", "Scan"],
+  ["Chess", "Chess"], ["Get Help", "GetHelp"], ["Get Started", "GetStarted"],
+];
+
+function store(key, value) {
+  try { return value === undefined ? localStorage.getItem(key) : localStorage.setItem(key, value); }
+  catch (e) { return null; }
+}
+
+// theme toggle (follows the system until the visitor picks one)
+(() => {
+  const root = document.documentElement;
+  const saved = store("theme");
+  if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+  document.getElementById("theme").addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    store("theme", root.dataset.theme);
+  });
+})();
+
+// apps grid
+document.getElementById("app-grid").innerHTML = APPS.map(([name, icon]) =>
+  `<div class="app"><img src="assets/icons/${icon}.svg" alt="" loading="lazy" width="48" height="48"><span>${name}</span></div>`
+).join("");
+
+// release info
+(() => {
+  const gb = (RELEASE.bytes / 1e9).toFixed(1);
+  document.getElementById("dl-date").textContent = `Released ${RELEASE.date}`;
+  document.getElementById("dl-file").textContent = RELEASE.file;
+  document.getElementById("dl-size").textContent = `${gb} GB`;
+  document.getElementById("dl-sha").textContent = RELEASE.sha256;
+  const btn = document.getElementById("dl-btn");
+  if (RELEASE.url) {
+    btn.href = RELEASE.url;
+    document.getElementById("dl-label").textContent = `Download ISO (${gb} GB)`;
+  } else {
+    btn.setAttribute("aria-disabled", "true");
+    btn.removeAttribute("href");
+    document.getElementById("dl-label").textContent = "Download coming soon";
+  }
+  document.getElementById("copy-sha").addEventListener("click", async (e) => {
+    try { await navigator.clipboard.writeText(RELEASE.sha256); e.target.textContent = "Copied"; }
+    catch (err) { e.target.textContent = "Select and copy"; }
+    setTimeout(() => (e.target.textContent = "Copy"), 1600);
+  });
+})();
+
+// light/dark compare slider
+(() => {
+  const c = document.getElementById("compare");
+  const input = c.querySelector("input");
+  const set = (v) => c.style.setProperty("--pos", v + "%");
+  input.addEventListener("input", () => set(input.value));
+  set(input.value);
+})();
+
+// reveal on scroll
+(() => {
+  const els = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+  }), {rootMargin: "0px 0px -10% 0px"});
+  els.forEach((e) => io.observe(e));
+})();
+</script>
+</body>
+</html>

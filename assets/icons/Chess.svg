@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bd" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b4a26"/><stop offset="1" stop-color="#4a2a14"/>
+    </linearGradient>
+    <linearGradient id="kg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d1c3"/>
+    </linearGradient>
+    <linearGradient id="qn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a4a52"/><stop offset="1" stop-color="#101014"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="18" width="56" height="42" rx="6" fill="url(#bd)"/>
+  <g>
+    <rect x="8" y="22" width="12" height="12" fill="#eed3a8"/><rect x="32" y="22" width="12" height="12" fill="#eed3a8"/>
+    <rect x="20" y="34" width="12" height="12" fill="#eed3a8"/><rect x="44" y="34" width="12" height="12" fill="#eed3a8"/>
+    <rect x="8" y="46" width="12" height="10" fill="#eed3a8"/><rect x="32" y="46" width="12" height="10" fill="#eed3a8"/>
+    <rect x="20" y="22" width="12" height="12" fill="#a06a3b"/><rect x="44" y="22" width="12" height="12" fill="#a06a3b"/>
+    <rect x="8" y="34" width="12" height="12" fill="#a06a3b"/><rect x="32" y="34" width="12" height="12" fill="#a06a3b"/>
+    <rect x="20" y="46" width="12" height="10" fill="#a06a3b"/><rect x="44" y="46" width="12" height="10" fill="#a06a3b"/>
+  </g>
+  <!-- black queen behind -->
+  <g transform="translate(36 6)">
+    <path d="M2 34 h18 l-2 -6 h-14 z" fill="url(#qn)" stroke="#000" stroke-width="0.8"/>
+    <path d="M4 28 l-3 -16 l5 6 l5 -10 l5 10 l5 -6 l-3 16 z" fill="url(#qn)" stroke="#000" stroke-width="0.8"/>
+    <circle cx="1" cy="11" r="2" fill="#2b2b30"/><circle cx="11" cy="6.5" r="2" fill="#2b2b30"/><circle cx="21" cy="11" r="2" fill="#2b2b30"/>
+  </g>
+  <!-- white king in front -->
+  <g transform="translate(10 2)">
+    <rect x="12" y="1" width="3" height="9" fill="url(#kg)" stroke="#3a2a1a" stroke-width="0.8"/>
+    <rect x="9" y="3.5" width="9" height="3" fill="url(#kg)" stroke="#3a2a1a" stroke-width="0.8"/>
+    <path d="M4 26 c-3 -8 2 -14 9.5 -14 s12.5 6 9.5 14 z" fill="url(#kg)" stroke="#3a2a1a" stroke-width="1"/>
+    <path d="M2 38 h23 l-2 -6 l1 -6 h-21 l1 6 z" fill="url(#kg)" stroke="#3a2a1a" stroke-width="1"/>
+  </g>
+</svg>

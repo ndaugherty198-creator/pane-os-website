@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="env" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fa0f5"/><stop offset="1" stop-color="#1663cf"/></linearGradient>
+    <linearGradient id="flap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0ff"/><stop offset="1" stop-color="#4fa9f7"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2ebf6"/></linearGradient>
+  </defs>
+  <rect x="12" y="8" width="40" height="34" rx="4" fill="url(#paper)" stroke="#c5d3e4"/>
+  <g stroke="#9fb3cb" stroke-width="2.4" stroke-linecap="round"><path d="M19 17h26"/><path d="M19 23h20"/></g>
+  <path d="M6 26l26 17 26-17v24a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5z" fill="url(#env)"/>
+  <path d="M6 50l20-15 6 4 6-4 20 15a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5z" fill="url(#flap)" opacity=".9"/>
+</svg>
