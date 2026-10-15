@@ -381,7 +381,7 @@ footer .legal { margin-top: 18px; font-size: 13px; line-height: 1.6; max-width: 
         <div class="feature-text">
           <h3>Get the apps you love</h3>
           <p>The Store brings thousands of free apps and games from Flathub and the Ubuntu repositories together in one place — Firefox, LibreOffice, VLC, GIMP, OBS, Blender and more.</p>
-          <ul><li>One-click install and updates</li><li>Games section and your Library</li><li>Run many Windows programs with the built-in EXE Runner</li></ul>
+          <ul><li>One-click install and updates</li><li>Games section and your Library</li><li>Run many Windows programs with the built-in EXE Runner</li><li>New: open <b>.paneapp</b> files — apps made just for Pane OS</li></ul>
         </div>
         <div class="shot"><img loading="lazy" src="assets/shots/store.webp" alt="Store app" width="1600" height="900"></div>
       </div>
@@ -516,6 +516,8 @@ footer .legal { margin-top: 18px; font-size: 13px; line-height: 1.6; max-width: 
       <details><summary>Can I run Windows programs?</summary><p>Many Windows programs run with the built-in Windows EXE Runner or Bottles from the Store. For most everyday tasks — browsing, office documents, photos, music and video — there are free native apps in the Store.</p></details>
       <details><summary>Does it cost anything?</summary><p>No. Pane OS is free to download, use and install on as many PCs as you like. There are no ads, subscriptions or accounts.</p></details>
       <details><summary>Can I try it without installing?</summary><p>Yes. Start your PC from the USB stick and Pane OS runs live from it. Nothing is changed on your PC until you run Pane OS Setup.</p></details>
+      <details><summary>What is a .paneapp file?</summary><p>A .paneapp is an app made just for Pane OS. Double-click one and App Installer shows you the app's name, publisher and what it needs, then installs it to your Start menu with one click — no terminal needed, and no password unless the app needs extra parts from Ubuntu. Apps get full access to your PC, so they work like any other program, but Pane OS keeps a safety net: if an app suddenly starts deleting or scrambling your files, Pane OS stops it and puts your files back, and you can undo everything an app changed from its details page. Existing PCs get .paneapp support through Settings › Pane OS Update.</p></details>
+      <details><summary>Can I make my own .paneapp?</summary><p>Yes. Put your app in a folder with a small <code>paneapp.json</code> file that names it, then run <code>pane-app pack</code> on that folder to get a .paneapp you can share. A complete sample app and the format guide come with Pane OS in <code>/usr/share/doc/pane-apps</code>.</p></details>
       <details><summary>How do updates work?</summary><p>Settings › Pane OS Update installs new versions of Pane OS apps. Ubuntu security and app updates install alongside them, and Pane OS keeps its own look and changes in place after each update.</p></details>
       <details><summary>Can I keep Windows and install Pane OS next to it?</summary><p>Pane OS Setup can install alongside an existing system if your disk has free space. Always back up your files before installing any operating system.</p></details>
     </div>
@@ -536,10 +538,10 @@ footer .legal { margin-top: 18px; font-size: 13px; line-height: 1.6; max-width: 
 // ---- Release details: update these when you publish a new ISO -------------------------
 const RELEASE = {
   url: "https://sourceforge.net/projects/pane-os/files/latest/download",  // empty = button shows "Coming soon"
-  file: "PaneOS-1.0-20261011.0737.iso",
-  date: "October 11, 2026",
-  bytes: 2416508928,
-  sha256: "e38a5d6e2a42b24270065781422e395dda21cc08e5a9218a313af9061b5219c2",
+  file: "PaneOS-1.0-20261012.0022.iso",
+  date: "October 12, 2026",
+  bytes: 2416574464,
+  sha256: "db92630f89a2dbb87f10160637bd7cae167f17a1dcdac7eeb6647ec27879433c",
 };
 // -------------------------------------------------------------------------------------------
 
